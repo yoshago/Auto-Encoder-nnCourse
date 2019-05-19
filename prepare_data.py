@@ -56,6 +56,23 @@ def img_to_data(name):
             data_set.append(line)
     return data_set
 
+def text_to_data(text):
+    image = Image.frombytes('L', (512,512), bytes(text,'utf-8'))
+    image = np.array(list(image.getdata())).reshape(512, 512)
+    data_set=[]
+    for i in range(32):
+        if (SQUARE_SIZE * i >= (512 - SQUARE_SIZE+1)):
+            break
+        for j in range(32):
+            if (SQUARE_SIZE * j >= (512 - SQUARE_SIZE+1)):
+                break
+            line = []
+            for k in range(SQUARE_SIZE):
+                for l in  range(SQUARE_SIZE):
+                    line.append(image[SQUARE_SIZE*i+k][SQUARE_SIZE*j+l])
+            data_set.append(line)
+    return data_set
+
 def data_to_img(data):
     print(len(data))
     print(len(data[1]))

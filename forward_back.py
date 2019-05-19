@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 INPUT_SIZE = 256
 OUTPUT_SIZE = 256
-HIDEN_SIZE = 32
+HIDEN_SIZE = 16
 
 
 def initialize_network(n_inputs, n_hidden, n_outputs):
@@ -124,7 +124,7 @@ print(len(dataset))
 random.shuffle(dataset)
 print("done prepare data set")
 print("start train network")
-num_epoch=40
+num_epoch=1
 #train + error graph
 error_list=train_network(network, np.array(dataset)/256.0, 0.1, num_epoch, OUTPUT_SIZE)
 x=np.array([x for x in range(num_epoch)]).reshape(num_epoch,1)
@@ -137,7 +137,9 @@ plt.savefig('morning_n'+str(HIDEN_SIZE)+'_e'+str(num_epoch)+'sec.png')
 
 
 ###################################predict###########################################################
-test_data=np.array(prepare_data.img_to_data("baby.jpg"))/256.0
+with open('text.txt', 'r') as file:
+    data = file.read().replace('\n', '')
+test_data=np.array(prepare_data.text_to_data(data[:262144]))/256.0
 ret_data=[]
 for row in test_data:
     tmp_output=(np.array(predict(network,row))*256)+0.5

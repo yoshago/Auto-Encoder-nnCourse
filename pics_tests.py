@@ -16,12 +16,12 @@ def rgb2gray(name):
     return gray
 
 
-img = rgb2gray('01.jpeg')
+img = rgb2gray('2.jpeg')
 print(np.array(img).shape)
 img=np.array(img).astype(np.uint8)
 img=Image.fromarray(img)
 img.show()
-img.save('sam.jpg')
+img.save('kineret.jpg')
 
 
 
